@@ -40,6 +40,10 @@ const NeoGrid = (): JSX.Element => {
           sortable: true,
           filter: true,
         }}
+        domLayout='autoHeight'
+        enableCellTextSelection={true}
+        enableRangeSelection={true}
+        copyHeadersToClipboard={true}
       />
     </div>
   );
