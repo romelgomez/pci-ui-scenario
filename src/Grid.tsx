@@ -29,10 +29,11 @@ const columnDefs: ColDef[] = [
   { field: "orbit_class", headerName: "Orbit Class", sortable: true, filter: 'agTextColumnFilter' },
 ];
 
-const NeoGrid = (): JSX.Element => {
+const NeoGrid = ({ gridRef }: { gridRef: any }): JSX.Element => {
   return (
     <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
       <AgGridReact
+        ref={gridRef}
         rowData={data}
         columnDefs={columnDefs}
         rowGroupPanelShow={'always'}
