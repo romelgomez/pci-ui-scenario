@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import NeoGrid from './Grid';
+import { useRef } from 'react';
+import NeoGrid from './components/Grid';
 
 const App = () => {
   const gridRef = useRef<any>(null);
