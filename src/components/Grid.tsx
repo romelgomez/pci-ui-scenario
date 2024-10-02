@@ -1,22 +1,22 @@
-import { AgGridReact } from "ag-grid-react";
-import { ModuleRegistry } from "ag-grid-enterprise";
-import { ClipboardModule } from "ag-grid-enterprise";
-import formatPotentiallyHazardous from '../formatters/format-potentially-hazardous';
+import { ModuleRegistry } from 'ag-grid-enterprise';
+import { ClipboardModule } from 'ag-grid-enterprise';
+import { AgGridReact } from 'ag-grid-react';
 import { columnDefs } from '../config/column-defs';
-import data from "../data/near-earth-asteroids.json";
-import "ag-grid-enterprise/styles/ag-grid.css";
-import "ag-grid-enterprise/styles/ag-theme-alpine.css";
+import data from '../data/near-earth-asteroids.json';
+import formatPotentiallyHazardous from '../formatters/format-potentially-hazardous';
+import 'ag-grid-enterprise/styles/ag-grid.css';
+import 'ag-grid-enterprise/styles/ag-theme-alpine.css';
 
 ModuleRegistry.registerModules([ClipboardModule]);
 
-const processed = data.map(item => ({
+const processed = data.map((item) => ({
   ...item,
   pha: formatPotentiallyHazardous(item.pha),
 }));
 
 const NeoGrid = ({ gridRef }: { gridRef: any }): JSX.Element => {
   return (
-    <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
+    <div className='ag-theme-alpine' style={{ height: 900, width: 1920 }}>
       <AgGridReact
         ref={gridRef}
         rowData={processed}
