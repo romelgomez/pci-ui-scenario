@@ -6,8 +6,12 @@ const App = () => {
 
   const clearFiltersAndSorters = () => {
     if (gridRef.current) {
+
+      gridRef.current.api!.applyColumnState({
+        defaultState: { sort: null },
+      });
+
       gridRef.current.api.setFilterModel(null);
-      gridRef.current.api.setSortModel(null);
     }
   };
 

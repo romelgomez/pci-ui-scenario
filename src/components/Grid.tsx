@@ -1,8 +1,11 @@
 import { AgGridReact } from "ag-grid-react";
-import { ColDef } from "ag-grid-community";
+import { ColDef, ModuleRegistry } from "ag-grid-enterprise";
+import { ClipboardModule } from "ag-grid-enterprise";
 import data from "../data/near-earth-asteroids.json";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+import "ag-grid-enterprise/styles/ag-grid.css";
+import "ag-grid-enterprise/styles/ag-theme-alpine.css";
+
+ModuleRegistry.registerModules([ClipboardModule]);
 
 const columnDefs: ColDef[] = [
   { field: "designation", headerName: "Designation", sortable: true, filter: 'agTextColumnFilter' },
@@ -47,7 +50,7 @@ const NeoGrid = ({ gridRef }: { gridRef: any }): JSX.Element => {
         }}
         domLayout='autoHeight'
         enableCellTextSelection={true}
-        enableRangeSelection={true}
+        cellSelection={true}
         copyHeadersToClipboard={true}
       />
     </div>
