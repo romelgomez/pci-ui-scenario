@@ -1,39 +1,17 @@
 import { AgGridReact } from "ag-grid-react";
-import { ColDef, ModuleRegistry } from "ag-grid-enterprise";
+import { ModuleRegistry } from "ag-grid-enterprise";
 import { ClipboardModule } from "ag-grid-enterprise";
+import formatPotentiallyHazardous from '../formatters/format-potentially-hazardous';
+import { columnDefs } from '../config/column-defs';
 import data from "../data/near-earth-asteroids.json";
 import "ag-grid-enterprise/styles/ag-grid.css";
 import "ag-grid-enterprise/styles/ag-theme-alpine.css";
 
 ModuleRegistry.registerModules([ClipboardModule]);
 
-const columnDefs: ColDef[] = [
-  { field: "designation", headerName: "Designation", sortable: true, filter: 'agTextColumnFilter' },
-  {
-    field: "discovery_date",
-    headerName: "Discovery Date",
-    sortable: true,
-    filter: 'agDateColumnFilter',
-    valueFormatter: (params) => new Date(params.value).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-  },
-  { field: "h_mag", headerName: "H (mag)", sortable: true, filter: 'agTextColumnFilter' },
-  { field: "moid_au", headerName: "MOID (au)", sortable: true, filter: 'agTextColumnFilter' },
-  { field: "q_au_1", headerName: "q (au)", sortable: true, filter: 'agTextColumnFilter' },
-  { field: "q_au_2", headerName: "Q (au)", sortable: true, filter: 'agTextColumnFilter' },
-  { field: "period_yr", headerName: "Period (yr)", sortable: true, filter: 'agTextColumnFilter' },
-  { field: "i_deg", headerName: "Inclination (deg)", sortable: true, filter: 'agTextColumnFilter' },
-  {
-    field: "pha",
-    headerName: "Potentially Hazardous",
-    sortable: true,
-    filter: 'agTextColumnFilter',
-  },
-  { field: "orbit_class", headerName: "Orbit Class", sortable: true, filter: 'agTextColumnFilter' },
-];
-
 const processed = data.map(item => ({
   ...item,
-  pha: item.pha === 'Y' ? 'Yes' : item.pha === 'N' ? 'No' : '',
+  pha: formatPotentiallyHazardous(item.pha),
 }));
 
 const NeoGrid = ({ gridRef }: { gridRef: any }): JSX.Element => {
