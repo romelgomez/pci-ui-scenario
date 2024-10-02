@@ -24,17 +24,21 @@ const columnDefs: ColDef[] = [
     headerName: "Potentially Hazardous",
     sortable: true,
     filter: 'agTextColumnFilter',
-    valueFormatter: (params) => params.value === 'Y' ? 'Yes' : params.value === 'N' ? 'No' : '',
   },
   { field: "orbit_class", headerName: "Orbit Class", sortable: true, filter: 'agTextColumnFilter' },
 ];
+
+const processed = data.map(item => ({
+  ...item,
+  pha: item.pha === 'Y' ? 'Yes' : item.pha === 'N' ? 'No' : '',
+}));
 
 const NeoGrid = ({ gridRef }: { gridRef: any }): JSX.Element => {
   return (
     <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
       <AgGridReact
         ref={gridRef}
-        rowData={data}
+        rowData={processed}
         columnDefs={columnDefs}
         rowGroupPanelShow={'always'}
         defaultColDef={{
